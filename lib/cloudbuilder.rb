@@ -1,6 +1,6 @@
+require "cloudbuilder/version"
 
-class CloudBuilder
-  def self.hi
-    puts "Hello world!"
-  end
+module Cloudbuilder
+	self.version
+  # Your code goes here...
 end
