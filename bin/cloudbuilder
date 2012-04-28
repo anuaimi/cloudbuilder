@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'cloudbuilder'
+
+$stdout.sync = true
+$stderr.sync = true
+
+opts = {}
+
+if ARGV.includes?("help")
+	puts "you want help, sorry, we don't do help yet"
+end
+
+if ARGV.includes?("create")
+	puts "reading default yaml file and creating servers"
+end
+
+#commands we support
+# create = will read default yaml file and process it
+# validate = will check the synax of a yaml file
+
+exit 1

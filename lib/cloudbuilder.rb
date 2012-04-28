@@ -1,6 +1,8 @@
 require "cloudbuilder/version"
 
-module Cloudbuilder
-	self.version
-  # Your code goes here...
+module CloudBuilder
+	def self.hello
+		puts "hello world"
+	end
+
 end

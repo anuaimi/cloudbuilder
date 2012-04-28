@@ -1,3 +1,3 @@
-module Cloudbuilder
+module CloudBuilder
   VERSION = "0.1.2"
 end

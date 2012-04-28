@@ -4,7 +4,7 @@ require "cloudbuilder/version"
 
 Gem::Specification.new do |s|
   s.name        = "cloudbuilder"
-  s.version     = Cloudbuilder::VERSION
+  s.version     = CloudBuilder::VERSION
   s.authors     = ["Athir Nuaimi"]
   s.email       = ["athir@nuaimi.com"]
   s.homepage    = "https://github.com/anuaimi/cloudbuilder"
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # specify any dependencies here; for example:
+  s.add_dependency "fog"
   s.add_development_dependency "ruby-debug19"
   # s.add_runtime_dependency "rest-client"
 end
