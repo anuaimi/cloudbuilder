@@ -1,0 +1,12 @@
+solution surfeasy do
+	
+	configuration development do
+	end
+
+	configuration staging do
+	end
+
+	configuration production do
+	end
+	
+end

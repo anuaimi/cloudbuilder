@@ -1,21 +1,59 @@
 #!/usr/bin/env ruby
+# require 'optparse'
+
 require 'cloudbuilder'
 
+#make sure output is not buffered
 $stdout.sync = true
 $stderr.sync = true
 
-opts = {}
+options = {}
 
-if ARGV.includes?("help")
-	puts "you want help, sorry, we don't do help yet"
+#debugger
+
+# OptionParser.new do |opts|
+
+# 	opts.banner = "Usage: cloudbuilder [command]"
+# 	opts.separator ""
+# 	opts.separator "Commands:"
+
+# 	usage+= "    create - create a cloud solution"
+# 	usage+= "    version - what version of clouldbuilder this is"
+# 	usage+= "    help - print this summary\n"
+
+# 	opts.on("-v", "--version", "print version") do |v|
+# 		puts "version #{clouldBuilder::VERSION}"
+# 		exit
+# 	end
+
+# end.parse!
+
+
+if (ARGV.include?("help")) || (ARGV.count == 0)
+	exit
 end
 
-if ARGV.includes?("create")
+if ARGV.include?("create")
+	require 'yaml'
+
 	puts "reading default yaml file and creating servers"
+
+	#read config file
+	parsed = begin
+		YAML.load(File.open(ARGV[2]))
+	rescue ArgumentError => e
+		puts "Could not parse solution file - #{e.message}"
+		exit
+	end
+
+	#validate file
+	#make sure we have a solution
+	debugger
+
+	if !parsed.include?('solution')
+		puts "solution "
+	end
 end
 
-#commands we support
-# create = will read default yaml file and process it
-# validate = will check the synax of a yaml file
 
 exit 1

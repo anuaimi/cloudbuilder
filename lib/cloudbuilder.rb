@@ -1,8 +1,6 @@
 require "cloudbuilder/version"
+require "cloudbuilder/create"
 
 module CloudBuilder
-	def self.hello
-		puts "hello world"
-	end
 
 end

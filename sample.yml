@@ -1,0 +1,9 @@
+solution: {
+	name: development
+	server: {
+		name: web
+		cloud: virtualbox
+        provisioner: puppet
+	}
+
+}
