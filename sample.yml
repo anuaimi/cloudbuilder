@@ -3,5 +3,6 @@
 :name: development
 :servers: 
 - :name: web
-  :cloud: rackspace
+  :cloud: aws
+  :os: ubuntu-12.04
   :provisioner: puppet

@@ -1,7 +1,15 @@
 #!/usr/bin/env ruby
+
 # require 'optparse'
+#require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'cloudbuilder'))
 
 require 'cloudbuilder'
+require 'yaml'
+
+require 'fog/bin'
+require 'fog/providers'
+require 'fog/compute'
+
 
 #make sure output is not buffered
 $stdout.sync = true
@@ -9,7 +17,7 @@ $stderr.sync = true
 
 options = {}
 
-#debugger
+debugger
 
 # OptionParser.new do |opts|
 
@@ -34,7 +42,6 @@ if (ARGV.include?("help")) || (ARGV.count == 0)
 end
 
 if ARGV.include?("create")
-	require 'yaml'
 
 	puts "reading default yaml file and creating servers"
 
@@ -43,7 +50,7 @@ if ARGV.include?("create")
     if (ARGV.count == 1)
         config_file = "sample.yml"
     else
-        config_file = ARGV[2]
+        config_file = ARGV[1]
     end
 
 	solution = begin
@@ -53,15 +60,87 @@ if ARGV.include?("create")
 		exit
 	end
 
-	#validate file
-	#make sure we have a solution
-	debugger
+    #validate
+    #make sure have needed credentials
+    clouds = Fog.available_providers
+    servers = solution[:servers]
+    servers.each do |server|
+        desired_cloud = server[:cloud]
+        if (clouds.index{|cloud| cloud.downcase == desired_cloud.downcase} == nil)
+            #shoud really see if even a valid cloud fog supports
+            if (Fog::Compute.providers.index( desired_cloud.to_sym) == nil)
+                puts "#{desired_cloud} is not supported (by fog)"
+            else
+                puts "credentials needed for #{server[:cloud]}"
+                exit
+            end
+        end
+    end
 
     #solution[:name]
-    #
-	if !parsed.include?('solution')
-		puts "solution "
-	end
+    puts "building #{solution[:name]}"
+    
+    servers = solution[:servers]
+    puts "solution has #{servers.length} servers"
+
+    servers.each do |server|
+        puts "-building #{server[:name]} on #{server[:cloud]}"
+
+        provider = server[:cloud].to_s.downcase.to_sym
+
+        #get connection to cloud
+        attributes = {}
+        attributes[:provider]= provider
+        if (server[:region])
+            #:region = ['us-east-1', 'us-west-1', 'etc']
+            attributes[:region] = server[:region]
+        end
+
+        # instance based (rather than EBS)
+        if (server[:os].downcase == 'ubuntu-12.04') {
+            if (provider == :aws) {
+                image_id = case :region
+                when 'us-east-1'
+                    'ami-3c994355'
+                when 'us-west-1'
+                    'ami-e7712aa2'
+                when 'us-west-2'
+                    'ami-38800c08'
+                when 'sa-east-1'
+                    'ami-96d8068b'
+                when 'eu-west-1'
+                    'ami-1de8d369'
+                when 'ap-southeast-1'
+                    'ami-a0ca8df2'
+                when 'ap-northeast-1'
+                    'ami-2cc7772d'
+                else
+                end
+                attributes[:image_id] = image_id
+            }
+
+            #do we need to enable swap?
+        }
+        if (provider == :aws) && 
+        cloud = Fog::Compute.new(attributes)
+
+        #:image_id - if don't specify an AMI, get Ubuntu 10.04 LTS - 64bit
+        #        should be able to specify 'ubuntu-12.04'
+        attributes = {}
+        # attributes[:security_group_ids]
+        # 't1.micro'
+        server = cloud.servers.new
+        #get instance id
+        
+        #is it ready?
+        #server.wait_for{ready?}
+        
+        server.destroy
+
+        #question - to bootstrap or not?
+            #
+
+    end
 end
 
 
