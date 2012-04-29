@@ -1,13 +1,9 @@
-solution: { 
-  name: staging
-  server1: {
-    name: web,
-    cloud: rackspace,
-    os-update: true
-  },
-  server2: {
-    name: database,
-    cloud: aws,
-    os-update: false
-  },
-}
+--- 
+:name: development
+:servers: 
+- :name: web
+  :cloud: rackspace
+  :provisioner: puppet
+- :name: database
+  :cloud: aws
+  :provisioner: puppet

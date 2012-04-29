@@ -39,8 +39,15 @@ if ARGV.include?("create")
 	puts "reading default yaml file and creating servers"
 
 	#read config file
-	parsed = begin
-		YAML.load(File.open(ARGV[2]))
+    #if have name use it, else assume 'default.yml'
+    if (ARGV.count == 1)
+        config_file = "sample.yml"
+    else
+        config_file = ARGV[2]
+    end
+
+	solution = begin
+		YAML.load(File.open(config_file))
 	rescue ArgumentError => e
 		puts "Could not parse solution file - #{e.message}"
 		exit
@@ -50,6 +57,8 @@ if ARGV.include?("create")
 	#make sure we have a solution
 	debugger
 
+    #solution[:name]
+    #
 	if !parsed.include?('solution')
 		puts "solution "
 	end

@@ -1,9 +1,7 @@
-solution: {
-	name: development
-	server: {
-		name: web
-		cloud: virtualbox
-        provisioner: puppet
-	}
-
-}
+# website on rackspace
+--- 
+:name: development
+:servers: 
+- :name: web
+  :cloud: rackspace
+  :provisioner: puppet
