@@ -11,4 +11,10 @@ one of the main uses of this is to allow developers to easily create a developer
 
 a deployment tool that can be used with puppet or chef scripts
 
-The idea for cloudbuilder was borne out of a furstration between using vagrant locally on my developer machine and then trying to deploy the application to a cloud
+The idea for cloudbuilder was borne out of a frustration between using vagrant locally on my developer machine and then trying to deploy the application to a cloud
+
+##Using##
+ - create a yaml file for the project that you want to deploy
+
+##Building##
+ - gem build clouldbuilder.gemspec
