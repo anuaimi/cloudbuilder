@@ -13,7 +13,14 @@ a deployment tool that can be used with puppet or chef scripts
 
 The idea for cloudbuilder was borne out of a frustration between using vagrant locally on my developer machine and then trying to deploy the application to a cloud
 
+##Installation##
+
+
 ##Using##
+ - if you have a clouldbuilder deployment file, all you have to do is run the following command
+    cloudbuilder examples/sample.yml
+
+ #Creating Deployment File##
  - create a yaml file for the project that you want to deploy
 
 ##Building##
