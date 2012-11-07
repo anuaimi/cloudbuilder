@@ -5,4 +5,5 @@ module CloudBuilder
 end
 
 require 'cloudbuilder/config'
+#require "cloudbuilder/version"
 require 'cloudbuilder/create'
